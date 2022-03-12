@@ -18,15 +18,27 @@ function nextSequence() {
   $("#" + randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 
   //Playing an audio for the selected button
-  var audio = new Audio("sounds/" + randomChosenColour + ".mp3");
-  audio.play();
+  playSound(randomChosenColour);
 
 };
 
 //Listening for clicks on buttons
 $(".btn").click(function() {
-  // var buttonId = $(".btn").attr("id");
-  var userChosenColour = $(".btn").attr("id");
+
+  //creating a variable with the id of the buttons
+  var userChosenColour = $(this).attr("id");
+
+  //pushing the result inside a new array
   userClickedPattern.push(userChosenColour);
-  // alert("working!");
+
+  playSound(userChosenColour);
+
 });
+
+function playSound(name) {
+
+  //Playing an audio for the selected button
+  var audio = new Audio("sounds/" + name + ".mp3");
+  audio.play();
+
+}
