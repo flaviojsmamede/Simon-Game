@@ -27,6 +27,8 @@ $(".btn").click(function() {
   //Adding a class for the clicked button
   animatePress(userChosenColour);
 
+  checkAnswer();
+
 });
 
 
@@ -72,4 +74,12 @@ function animatePress(currentColour) {
     $("#" + currentColour).removeClass("pressed");
   }, 100);
 
+};
+
+function checkAnswer(currentLevel) {
+  if (gamePattern[gamePattern.length - 1] === userClickedPattern[userClickedPattern.length - 1]){
+    console.log("success");
+  } else {
+    console.log("wrong");
+  }
 };
