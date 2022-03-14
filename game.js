@@ -20,6 +20,11 @@ function nextSequence() {
   //Playing an audio for the selected button
   playSound(randomChosenColour);
 
+  //Adding a class for the clicked button
+  animatePress(randomChosenColour);
+
+
+
 };
 
 //Listening for clicks on buttons
@@ -31,7 +36,11 @@ $(".btn").click(function() {
   //pushing the result inside a new array
   userClickedPattern.push(userChosenColour);
 
+  //Playing an audio for the clicked button
   playSound(userChosenColour);
+
+  //Adding a class for the clicked button
+  animatePress(userChosenColour);
 
 });
 
@@ -41,4 +50,14 @@ function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
   audio.play();
 
-}
+};
+
+//creating a function that adds a class and removes it after a delay
+function animatePress(currentColour) {
+  $("#" + currentColour).addClass("pressed");
+
+  setTimeout(function() {
+      $("#" + currentColour).removeClass("pressed");
+    }, 100);
+
+};
