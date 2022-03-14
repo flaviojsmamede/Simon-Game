@@ -4,28 +4,13 @@ var gamePattern = [];
 
 var userClickedPattern = [];
 
-function nextSequence() {
-  //Selecting a rnndom number
-  var randomNumber = Math.floor(Math.random() * 4);
+var level = 0;
 
-  //Selecting one colour inside the array
-  var randomChosenColour = buttonColours[randomNumber];
-
-  //Putting the selected colour inside an array
-  gamePattern.push(randomChosenColour);
-
-  //Making an animation for the selected button
-  $("#" + randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-
-  //Playing an audio for the selected button
-  playSound(randomChosenColour);
-
-  //Adding a class for the clicked button
-  animatePress(randomChosenColour);
-
-
-
-};
+//Listening to the first keypress on the whole page
+$("body").one("keypress", function() {
+  nextSequence();
+  $("h1").text("Level " + level);
+});
 
 //Listening for clicks on buttons
 $(".btn").click(function() {
@@ -44,6 +29,33 @@ $(".btn").click(function() {
 
 });
 
+
+function nextSequence() {
+
+  level++;
+  //Changing the title each title the function runs
+  $("h1").text("Level " + level);
+
+  //Selecting a rnndom number
+  var randomNumber = Math.floor(Math.random() * 4);
+
+  //Selecting one colour inside the array
+  var randomChosenColour = buttonColours[randomNumber];
+
+  //Putting the selected colour inside an array
+  gamePattern.push(randomChosenColour);
+
+  //Making an animation for the selected button
+  $("#" + randomChosenColour).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+
+  //Playing an audio for the selected button
+  playSound(randomChosenColour);
+
+  //Adding a class for the clicked button
+  animatePress(randomChosenColour);
+
+};
+
 function playSound(name) {
 
   //Playing an audio for the selected button
@@ -57,7 +69,7 @@ function animatePress(currentColour) {
   $("#" + currentColour).addClass("pressed");
 
   setTimeout(function() {
-      $("#" + currentColour).removeClass("pressed");
-    }, 100);
+    $("#" + currentColour).removeClass("pressed");
+  }, 100);
 
 };
