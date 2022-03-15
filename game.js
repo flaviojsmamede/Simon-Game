@@ -27,12 +27,15 @@ $(".btn").click(function() {
   //Adding a class for the clicked button
   animatePress(userChosenColour);
 
-  checkAnswer();
+  checkAnswer(userClickedPattern.length - 1);
 
 });
 
 
 function nextSequence() {
+
+//reseting the array
+  userClickedPattern = [];
 
   level++;
   //Changing the title each title the function runs
@@ -76,10 +79,13 @@ function animatePress(currentColour) {
 
 };
 
+//Checking the user's answer
 function checkAnswer(currentLevel) {
-  if (gamePattern[gamePattern.length - 1] === userClickedPattern[userClickedPattern.length - 1]){
-    console.log("success");
-  } else {
-    console.log("wrong");
-  }
-};
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+      if (gamePattern.length === userClickedPattern.length) {
+        setTimeout(nextSequence(), 1000);
+      }
+    } else {
+      console.log("wrong");
+    }
+  };
