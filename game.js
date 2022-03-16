@@ -34,7 +34,7 @@ $(".btn").click(function() {
 
 function nextSequence() {
 
-//reseting the array
+  //reseting the array
   userClickedPattern = [];
 
   level++;
@@ -82,10 +82,41 @@ function animatePress(currentColour) {
 //Checking the user's answer
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
-      if (gamePattern.length === userClickedPattern.length) {
-        setTimeout(nextSequence(), 1000);
-      }
-    } else {
-      console.log("wrong");
+
+    if (gamePattern.length === userClickedPattern.length) {
+      setTimeout(nextSequence(), 1000);
+
     }
-  };
+  } else {
+
+    console.log("wrong");
+
+    //Playing a sound
+    playSound("wrong");
+
+    //Changing the background
+    $("body").addClass("game-over");
+
+    setTimeout(function() {
+      $("body").removeClass("game-over");
+    }, 200);
+
+    //Changing the title
+    $("#level-title").text("Game Over, Press Any Key to Restart");
+
+    //Start again
+    startOver();
+
+  }
+};
+
+function startOver() {
+  level = 0;
+  gamePattern = [];
+
+  $("body").keypress(function() {
+    nextSequence();
+    $("#level-title").text("Level " + level);
+  });
+
+};
