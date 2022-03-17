@@ -4,12 +4,17 @@ var gamePattern = [];
 
 var userClickedPattern = [];
 
+var started = false;
+
 var level = 0;
 
 //Listening to the first keypress on the whole page
-$("body").one("keypress", function() {
-  nextSequence();
-  $("h1").text("Level " + level);
+$(document).keypress(function() {
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
 });
 
 //Listening for clicks on buttons
@@ -113,10 +118,6 @@ function checkAnswer(currentLevel) {
 function startOver() {
   level = 0;
   gamePattern = [];
-
-  $("body").keypress(function() {
-    nextSequence();
-    $("#level-title").text("Level " + level);
-  });
+  started = false;
 
 };
